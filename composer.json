@@ -1,0 +1,43 @@
+{
+    "$schema": "https://getcomposer.org/schema.json",
+    "name": "stackstra/stackstra",
+    "description": "Standalone, framework-agnostic PHP helper library: types, cache, filesystem, curl, console, streams and more.",
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "php": "^8.5"
+    },
+    "suggest": {
+        "ext-mbstring": "Required by Types\\Chars for multibyte string handling.",
+        "ext-ctype": "Required by Types\\Chars for character-class checks.",
+        "ext-curl": "Required by the Curl\\* HTTP client subsystem.",
+        "ext-simplexml": "Required by Types\\XML for XML parsing.",
+        "ext-dom": "Required by Types\\XML for DOM-based XML handling.",
+        "ext-fileinfo": "Required by Filesystem\\File for MIME-type detection.",
+        "ext-posix": "Required by Etc\\Process for POSIX process control (Unix only)."
+    },
+    "autoload": {
+        "files": [
+            "src/globals.php"
+        ],
+        "psr-4": {
+            "Stackstra\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Stackstra\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "require-dev": {
+        "fakerphp/faker": "^1.24",
+        "phpstan/phpstan": "^2.0",
+        "phpunit/phpunit": "^12.0"
+    }
+}
