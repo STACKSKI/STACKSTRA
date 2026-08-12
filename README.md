@@ -19,7 +19,7 @@ Standalone, framework-agnostic PHP helper library: types, cache, filesystem, cur
 
 ## Classes by domain
 
-### Types — scalar & data-structure helpers
+### Types: scalar & data-structure helpers
 | Class | Purpose |
 |---|---|
 | `Types\Strings` | String manipulation: excerpts, trimming, case, search/replace, parsing, multibyte-safe slicing |
@@ -34,7 +34,7 @@ Standalone, framework-agnostic PHP helper library: types, cache, filesystem, cur
 | `Types\Resource` | PHP resource introspection (stream metadata, path) |
 | `Types\XML` | XML to/from JSON/array/object conversions |
 
-### Cache — in-memory value storage
+### Cache: in-memory value storage
 | Class | Purpose |
 |---|---|
 | `Cache\Cache` | Core value cache with push/shift/get and first/last access |
@@ -42,7 +42,7 @@ Standalone, framework-agnostic PHP helper library: types, cache, filesystem, cur
 | `Cache\CachePipe` | Bounded pipe (FIFO-style) wrapper around `Cache` |
 | `Cache\CacheNested` | Safe by-reference pointer/get/set access into nested arrays |
 
-### Curl — HTTP client subsystem
+### Curl: HTTP client subsystem
 | Class | Purpose |
 |---|---|
 | `Curl\Curl` | High-level HTTP client entry point |
@@ -55,7 +55,7 @@ Standalone, framework-agnostic PHP helper library: types, cache, filesystem, cur
 | `Curl\CurlResponse` | Single HTTP response wrapper |
 | `Curl\CurlResponseList` | Collection of `CurlResponse` objects |
 
-### Filesystem — files & directories
+### Filesystem: files & directories
 | Class | Purpose |
 |---|---|
 | `Filesystem\File` | Static file operations: open/create/read/write/append |
@@ -67,7 +67,7 @@ Standalone, framework-agnostic PHP helper library: types, cache, filesystem, cur
 | `Filesystem\Traits\CanIterate` | Shared iteration trait for filesystem objects |
 | `Filesystem\Traits\CanSearch` | Shared search trait for filesystem objects |
 
-### Console — CLI tooling
+### Console: CLI tooling
 | Class | Purpose |
 |---|---|
 | `Console\Console` | Console I/O helpers |
@@ -76,7 +76,7 @@ Standalone, framework-agnostic PHP helper library: types, cache, filesystem, cur
 | `Console\Prompt` | Interactive CLI menu/prompt with option callbacks |
 | `Console\PromptItem` | A single selectable item within a `Prompt` |
 
-### Etc — system, environment & web-request utilities
+### Etc: system, environment & web-request utilities
 | Class | Purpose |
 |---|---|
 | `Etc\System` | OS/hostname/processor identification, endianness |
@@ -101,7 +101,7 @@ Standalone, framework-agnostic PHP helper library: types, cache, filesystem, cur
 | `Etc\Visitor` | Client-facing request info: IP, language detection |
 | `Etc\ASCII` | ASCII index/char/hex conversions and printability checks |
 
-### DateTime, Regexp, URL, Lang, Math, Lock, Cron, CSS, Stream, Map — misc domains
+### DateTime, Regexp, URL, Lang, Math, Lock, Cron, CSS, Stream, Map: misc domains
 | Class | Purpose |
 |---|---|
 | `DateTime\DateTime` | Immutable-style timestamp wrapper with formatting helpers |
@@ -117,12 +117,16 @@ Standalone, framework-agnostic PHP helper library: types, cache, filesystem, cur
 | `Map\Map` | Fluent key/value map container |
 | `INI\INI` | INI file/string parser |
 
-### Exceptions & Singleton — cross-cutting
+### Exceptions & Singleton: cross-cutting
 | Class | Purpose |
 |---|---|
 | `Exceptions\Exceptions` | Triggers errors/warnings/notices at configurable severity levels |
 | `Singleton\Singleton` | Single-instance-per-file lock guard |
 | `Traits\Singleton` | Singleton-instance trait for classes |
+
+## Optional framework support
+
+For Laravel projects, we've created a companion package: [stackski/stackstra-laravel](https://github.com/stackski/stackstra-laravel).
 
 ## Testing
 

@@ -2,6 +2,7 @@
     "$schema": "https://getcomposer.org/schema.json",
     "name": "stackski/stackstra",
     "description": "Standalone, framework-agnostic PHP helper library: types, cache, filesystem, curl, console, streams and more.",
+    "version": "1.0.0",
     "type": "library",
     "license": "MIT",
     "require": {
