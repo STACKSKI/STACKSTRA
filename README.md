@@ -4,7 +4,7 @@ Standalone, framework-agnostic PHP helper library: types, cache, filesystem, cur
 
 - **Namespace:** `Stackstra\`
 - **Requires:** PHP ^8.5
-- **Install:** `composer require stackstra/stackstra`
+- **Install:** `composer require stackski/stackstra`
 
 ## Optional extensions
 
