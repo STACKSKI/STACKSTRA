@@ -1675,6 +1675,11 @@ class Items
 
 		foreach ((array) $indexes as $index)
 		{
+			if (!is_array($pointer))
+			{
+				$pointer = [];
+			}
+
 			if (!self::keyExist($pointer, $index))
 			{
 				$pointer[$index] = [];
@@ -1702,6 +1707,11 @@ class Items
 
 		foreach ((array) $indexes as $index)
 		{
+			if (!is_array($pointer))
+			{
+				$pointer = [];
+			}
+
 			if (!self::keyExist($pointer, $index))
 			{
 				$pointer[$index] = [];

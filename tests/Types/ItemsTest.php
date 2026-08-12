@@ -585,6 +585,13 @@ class ItemsTest extends TestCase
         Items::nestedSet($array, ['a', 'c'], 2);
 
         $this->assertSame(['a' => ['b' => 1, 'c' => 2]], $array);
+
+        # a scalar sitting where a nested key is being walked/created gets overwritten with an array instead of crashing
+        $array = ['a' => 5];
+
+        Items::nestedSet($array, ['a', 'b'], 10);
+
+        $this->assertSame(['a' => ['b' => 10]], $array);
     }
 
     public function testNestedPush(): void
@@ -594,6 +601,13 @@ class ItemsTest extends TestCase
         Items::nestedPush($array, ['a'], 7);
 
         $this->assertSame(['a' => [7]], $array);
+
+        # a scalar sitting where a nested key is being walked/created gets overwritten with an array instead of crashing
+        $array = ['a' => 5];
+
+        Items::nestedPush($array, ['a', 'b'], 10);
+
+        $this->assertSame(['a' => ['b' => [10]]], $array);
     }
 
     public function testDiff(): void
