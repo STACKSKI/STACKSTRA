@@ -112,6 +112,9 @@ class StringsTest extends TestCase
     {
         $this->assertSame('Hello...', Strings::excerpt('Hello world', 8));
         $this->assertSame('Hi', Strings::excerpt('Hi', 8));
+
+        // a string that already fits within max_length is returned unchanged, even when it's the same length
+        $this->assertSame('Hello world', Strings::excerpt('Hello world', 11));
     }
 
     public function testReplace(): void
@@ -133,6 +136,9 @@ class StringsTest extends TestCase
     public function testReplaceBetween(): void
     {
         $this->assertSame('<a>X<b>', Strings::replaceBetween('<a>keep<b>', '<a>', '<b>', 'X'));
+
+        // markers not found: the string is returned unchanged instead of crashing
+        $this->assertSame('hello world', Strings::replaceBetween('hello world', 'X', 'Y', 'Z'));
     }
 
     public function testRemove(): void
@@ -267,6 +273,9 @@ class StringsTest extends TestCase
         $this->assertTrue(Strings::startsWith('ASCII string example', 'ascii', false));
 
         $this->assertFalse(Strings::startsWith('ASCII string example', 'example'));
+
+        // an empty substring always matches, same as the native str_starts_with()
+        $this->assertTrue(Strings::startsWith('ASCII string example', ''));
     }
 
     public function testEndsWith(): void
@@ -275,6 +284,9 @@ class StringsTest extends TestCase
         $this->assertTrue(Strings::endsWith('ASCII string example', 'EXAMPLE', false));
 
         $this->assertFalse(Strings::endsWith('ASCII string example', 'ASCII'));
+
+        // an empty substring always matches, same as startsWith() and the native str_ends_with()
+        $this->assertTrue(Strings::endsWith('ASCII string example', ''));
     }
 
     public function testErase(): void
@@ -282,16 +294,26 @@ class StringsTest extends TestCase
         $this->assertSame('he', Strings::erase('hello', 2));
         $this->assertSame('llo', Strings::erase('hello', 0, 2));
         $this->assertSame('heo', Strings::erase('hello', 2, 2));
+
+        // multi-byte strings are sliced by character, not by byte
+        $this->assertSame('πρ', Strings::erase('πράδειγμα', 2));
+        $this->assertSame('πρειγμα', Strings::erase('πράδειγμα', 2, 2));
     }
 
     public function testInsert(): void
     {
         $this->assertSame('AAAAXBBBB', Strings::insert('AAAABBBB', 'X', 4));
+
+        // offset 0 prepends the substring instead of appending it to the end
+        $this->assertSame('XAAAABBBB', Strings::insert('AAAABBBB', 'X', 0));
     }
 
     public function testPermutation(): void
     {
         $this->assertSame(['A B', 'B A'], Strings::permutation('A B'));
+
+        // the custom delimiter is used to rejoin the permuted segments, not a hardcoded space
+        $this->assertSame(['a,b', 'b,a'], Strings::permutation('a,b', ','));
     }
 
     public function testFirst(): void
@@ -481,11 +503,17 @@ class StringsTest extends TestCase
     public function testParseFloat(): void
     {
         $this->assertSame(4.2, Strings::parseFloat('4.2abc'));
+
+        // no digits at all: null instead of crashing
+        $this->assertNull(Strings::parseFloat('abc'));
     }
 
     public function testParseInt(): void
     {
         $this->assertSame(42, Strings::parseInt('42abc'));
+
+        // no digits at all: null instead of crashing
+        $this->assertNull(Strings::parseInt('abc'));
     }
 
     public function testUnpack(): void

@@ -42,6 +42,12 @@ class CacheNestedTest extends TestCase
 
         $this->assertSame('fallback', $cache->pointer(['a', 'z'], 'fallback'));
         $this->assertFalse($cache->isPointerValid());
+
+        // walking a scalar value as if it were a nested array falls back to the default instead of crashing
+        $scalar_data  = ['a' => 5];
+        $cache_scalar = new CacheNested($scalar_data);
+        $this->assertSame('fallback', $cache_scalar->pointer(['a', 'b'], 'fallback'));
+        $this->assertFalse($cache_scalar->isPointerValid());
     }
 
     public function testGet(): void

@@ -378,14 +378,14 @@ class Strings
 	 */
 	public static function excerpt(string $string, int $max_length, string $ending = '...'): string
 	{
-		$max_length = $max_length - static::length($ending);
-
 		if (static::length($string) <= $max_length)
 		{
 			return $string;
 		}
 
-		return static::read($string, $max_length) . $ending;
+		$max_length_text = $max_length - static::length($ending);
+
+		return static::read($string, $max_length_text) . $ending;
 	}
 
 	/**
@@ -511,6 +511,11 @@ class Strings
 	public static function replaceBetween(string $string, string $substring_one, string $substring_two, string $replace, bool $include_first_border = false, bool $include_second_border = false, ?int $offset = null): string
 	{
 		$substring = static::readBetween($string, $substring_one, $substring_two, $include_first_border, $include_second_border, $offset);
+
+		if ($substring === null)
+		{
+			return $string;
+		}
 
 		return static::replace($string, $substring, $replace);
 	}
@@ -1102,14 +1107,6 @@ class Strings
 		}
 
 
-		$length = strlen($substring);
-
-		if (!$length)
-		{
-			return false;
-		}
-
-
 		if ($case_sensitive !== true)
 		{
 			$string    = static::toLowercase($string);
@@ -1137,7 +1134,7 @@ class Strings
 			# length: null
 			# result: `he`
 
-			return substr($string, 0, $offset);
+			return static::read($string, $offset);
 		}
 
 		if ($offset == 0)
@@ -1156,7 +1153,7 @@ class Strings
 		# length: 2
 		# result: `heo`
 
-		return static::read($string, $offset) . substr($string, $offset + $length);
+		return static::read($string, $offset) . static::read($string, null, $offset + $length);
 	}
 
 	/**
@@ -1172,11 +1169,6 @@ class Strings
 	 */
 	public static function insert(string $string, string $substring, int $offset): string
 	{
-		if ($offset == 0)
-		{
-			return $string . $substring;
-		}
-
 		return substr($string, 0, $offset) . $substring . substr($string, $offset);
 	}
 
@@ -1227,7 +1219,7 @@ class Strings
 
 		foreach ($array as $item)
 		{
-			$result[] = implode(' ', $item);
+			$result[] = implode($delimiter, $item);
 		}
 
 		return $result;
@@ -1783,14 +1775,24 @@ class Strings
 	{
 		$result = filter_var($string, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 
-		return false_to_null($result);
+		if ($result === false or !is_numeric($result))
+		{
+			return null;
+		}
+
+		return (float) $result;
 	}
 
 	public static function parseInt(string $string): ?int
 	{
 		$result = filter_var($string, FILTER_SANITIZE_NUMBER_INT);
 
-		return false_to_null($result);
+		if ($result === false or !is_numeric($result))
+		{
+			return null;
+		}
+
+		return (int) $result;
 	}
 
 	//public static function equals($string_one, $string_two, $case_sensitive = true)

@@ -29,7 +29,7 @@ class CacheNested
 
 		foreach ((array) $indexes as $index)
 		{
-			if (!array_key_exists($index, $pointer))
+			if (!is_array($pointer) or !array_key_exists($index, $pointer))
 			{
 				# only variable references should be returned by reference
 
